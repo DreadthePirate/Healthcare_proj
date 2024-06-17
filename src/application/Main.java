@@ -1,5 +1,5 @@
 package application;
-	
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +39,7 @@ public class Main extends Application {
 
          // Button events
          btnIntake.setOnAction(e -> new PatientIntake().start(primaryStage));
-         btnDoctor.setOnAction(e -> System.out.println("Doctor Portal clicked"));
+         btnDoctor.setOnAction(e -> new DoctorLogin().start(primaryStage));
          btnPatient.setOnAction(e -> System.out.println("Patient Portal clicked"));
 
          // Adding components to the VBox
