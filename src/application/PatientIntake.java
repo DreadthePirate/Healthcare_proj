@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -42,22 +44,32 @@ public class PatientIntake extends Application {
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(30);
         grid.setVgap(20);
+        
+        TextField firstNameField = new TextField();
+        TextField lastNameField = new TextField();
+        TextField dobField = new TextField();
+        TextField weightField = new TextField();
+        TextField heightField = new TextField();
+        TextField bloodPressureField = new TextField();
+        TextField allergiesField = new TextField();
+        TextField healthConcernsField = new TextField();
+        
         grid.add(new Label("First Name:"), 0, 0);
-        grid.add(new TextField(), 1, 0);
+        grid.add(firstNameField, 1, 0);
         grid.add(new Label("Last Name:"), 0, 1);
-        grid.add(new TextField(), 1, 1);
+        grid.add(lastNameField, 1, 1);
         grid.add(new Label("Date Of Birth:"), 0, 2);
-        grid.add(new TextField(), 1, 2);
+        grid.add(dobField, 1, 2);
         grid.add(new Label("Weight:"), 0, 3);
-        grid.add(new TextField(), 1, 3);
+        grid.add(weightField, 1, 3);
         grid.add(new Label("Height:"), 0, 4);
-        grid.add(new TextField(), 1, 4);
+        grid.add(heightField, 1, 4);
         grid.add(new Label("Blood Pressure:"), 0, 5);
-        grid.add(new TextField(), 1, 5);
+        grid.add(bloodPressureField, 1, 5);
         grid.add(new Label("Allergies:"), 0, 6);
-        grid.add(new TextField(), 1, 6);
+        grid.add(allergiesField, 1, 6);
         grid.add(new Label("Health Concerns:"), 0, 7);
-        grid.add(new TextField(), 1, 7);
+        grid.add(healthConcernsField, 1, 7);
         VBox.setMargin(grid, new Insets(0, 0, 40, 0));
 
         // Save button
@@ -71,7 +83,15 @@ public class PatientIntake extends Application {
         
         // Button events
         btnGoBack.setOnAction(e -> new Main().start(primaryStage));
-        btnSave.setOnAction(e -> System.out.println("Save clicked"));
+        btnSave.setOnAction(e -> {
+        	Random rand = new Random();
+        	// Generate a random 6-digit number for patientID
+            int patientID = rand.nextInt(900000) + 100000;
+            TextField[] textFields = {firstNameField, lastNameField, dobField, weightField, heightField, bloodPressureField, allergiesField, healthConcernsField};
+            Data.writePatientFile(patientID, textFields);
+            Data.readPatientFile(patientID);
+            new Main().start(primaryStage);
+        });
 
         // Adding components to the VBox
         mainLayout.getChildren().addAll(topControls, titleBox, grid, bottomControls);
