@@ -40,7 +40,7 @@ public class Main extends Application {
          // Button events
          btnIntake.setOnAction(e -> new PatientIntake().start(primaryStage));
          btnDoctor.setOnAction(e -> new DoctorLogin().start(primaryStage));
-         btnPatient.setOnAction(e -> System.out.println("Patient Portal clicked"));
+         btnPatient.setOnAction(e -> new PatientLogin().start(primaryStage));
 
          // Adding components to the VBox
          vbox.getChildren().addAll(titleBox, btnIntake, btnPatient, btnDoctor);
