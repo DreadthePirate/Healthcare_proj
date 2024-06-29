@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 public class DoctorLogin extends Application {
     public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
-    private static final String CREDENTIALS_DIR = "*/Healthcare_proj-main/src/resources";
+    private static final String CREDENTIALS_DIR = "*/Healthcare_proj-main/src";
 
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Doctor Login");
@@ -34,6 +34,7 @@ public class DoctorLogin extends Application {
         Button GoBack = new Button("Go Back");
         HBox topControls = new HBox(GoBack);
         topControls.setAlignment(Pos.TOP_LEFT);
+        GoBack.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
 
         // Title
         Text Title = new Text("Doctor Login");
@@ -66,7 +67,7 @@ public class DoctorLogin extends Application {
         // Save button
         Button btnLogin = new Button("Login");
         HBox bottomControls = new HBox(btnLogin);
-        bottomControls.setAlignment(Pos.BOTTOM_LEFT);
+        bottomControls.setAlignment(Pos.BOTTOM_RIGHT);
 
         // Styling buttons
         btnLogin.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
@@ -154,7 +155,5 @@ public class DoctorLogin extends Application {
         return false;
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) {launch(args);}
 }
