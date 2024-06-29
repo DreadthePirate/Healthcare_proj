@@ -60,7 +60,7 @@ public class DoctorLogin extends Application {
         // Save button
         Button btnLogin = new Button("Login");
         HBox bottomControls = new HBox(btnLogin);
-        bottomControls.setAlignment(Pos.BOTTOM_LEFT);
+        bottomControls.setAlignment(Pos.BOTTOM_RIGHT);
 
         // Styling buttons
         GoBack.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
