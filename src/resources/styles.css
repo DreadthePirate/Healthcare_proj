@@ -12,9 +12,24 @@
     -fx-padding: 3 30 3 30;
     -fx-text-fill: black;
     -fx-font-size: 14px;
-    -fx-pref-width: 210px;
-    -fx-pref-height: 60px;
+    -fx-pref-width: 180px;
+    -fx-pref-height: 80px;
 }
+
+.button-large-style {
+    -fx-background-color:
+            #3c7fb1,
+            linear-gradient(#fafdfe, #e8f5fc),
+            linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 5, 6, 7;
+    -fx-background-radius: 3, 2, 1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 80px;
+}
+
 
 .button-style:pressed,
 .button-small-style:pressed {
@@ -29,27 +44,37 @@
     -fx-pref-height: 45px;
 }
 
-/*
- * NEW SECTION
- */
-
-.button-small-style-wide {
-    -fx-background-color: 
-        #3c7fb1,
-        linear-gradient(#fafdfe, #e8f5fc),
-        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+.button-style,
+.button-small-message-style {
+    -fx-background-color:
+            #3c7fb1,
+            linear-gradient(#fafdfe, #e8f5fc),
+            linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
     -fx-background-insets: 5, 6, 7;
     -fx-background-radius: 3, 2, 1;
     -fx-padding: 3 30 3 30;
     -fx-text-fill: black;
     -fx-font-size: 14px;
-    -fx-pref-width: 235px;
-    -fx-pref-height: 45px;
+    -fx-pref-width: 120;
+    -fx-pref-height: 78;
 }
 
-.button-small-style-wide:pressed {
-    -fx-background-color: #356899,
-    linear-gradient(#d9f0fc, #c6e2f8),
-    linear-gradient(#c6e2f8 0%, #bee6fd 49%, #aadbf2 50%, #99d1eb 100%);
-    -fx-text-fill: #333333;
+.button-style,
+.button-large-message-style {
+    -fx-background-color:
+            #3c7fb1,
+            linear-gradient(#fafdfe, #e8f5fc),
+            linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 5, 6, 7;
+    -fx-background-radius: 3, 2, 1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-pref-width: 168;
+    -fx-pref-height: 80;
 }
+
+
+/*
+ * NEW SECTION
+ */
