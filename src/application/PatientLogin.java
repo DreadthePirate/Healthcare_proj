@@ -54,7 +54,7 @@ public class PatientLogin extends Application {
         // Login button
         Button btnLogin = new Button("Login");
         HBox bottomControls = new HBox(10, btnLogin);
-        bottomControls.setAlignment(Pos.BOTTOM_LEFT);
+        bottomControls.setAlignment(Pos.BOTTOM_RIGHT);
 
         // Styling buttons
         goBack.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
