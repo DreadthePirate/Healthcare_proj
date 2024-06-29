@@ -8,7 +8,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
-public class DoctorPortal extends Application {
+public class DoctorView extends Application {
 
     @Override
     public void start(Stage primaryStage) {
