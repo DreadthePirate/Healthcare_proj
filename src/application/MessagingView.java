@@ -39,10 +39,10 @@ public class MessagingView extends Application {
         // Title
         primaryStage.setTitle("Messaging Portal");
         Text title = new Text("Messaging Portal");
-        title.setFont(Font.font("Arial", 18));
+        title.setFont(Font.font("Arial", 24));
         HBox titleBox = new HBox(title);
         titleBox.setAlignment(Pos.CENTER);
-        titleBox.setPadding(new Insets(5, 0, 15, 0));
+        titleBox.setPadding(new Insets(5, 0, 20, 0));
 
         // New Conversation input and button
         newConversationField.setPromptText("New Conversation Name");
@@ -108,7 +108,7 @@ public class MessagingView extends Application {
         layout.setAlignment(Pos.TOP_CENTER);
 
         // Setting up the Scene
-        Scene scene = new Scene(layout, 600, 575);
+        Scene scene = new Scene(layout, 600, 585);
         scene.getStylesheets().add(getClass().getResource("/resources/styles.css").toExternalForm());
 
         // Set the stage

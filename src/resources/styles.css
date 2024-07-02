@@ -15,8 +15,8 @@
     -fx-padding: 3 30 3 30;
     -fx-text-fill: black;
     -fx-font-size: 14px;
-    -fx-pref-width: 180px;
-    -fx-pref-height: 80px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 70px;
 }
 
 .button-large-style {
@@ -49,6 +49,10 @@
     -fx-pref-width: 150px;
     -fx-pref-height: 45px;
 }
+.button-small-wide-style {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 45px;
+}
 
 .button-small-message-style {
     -fx-pref-width: 110;
@@ -58,6 +62,9 @@
     -fx-pref-width: 180;
 }
 
+.button-style {
+	-fx-font-size: 16px;
+}
 
 /*
  * NEW SECTION

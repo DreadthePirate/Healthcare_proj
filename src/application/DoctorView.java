@@ -22,7 +22,7 @@ public class DoctorView extends Application {
         BorderPane borderPane = new BorderPane();
 
         Text title = new Text("Doctor Portal");
-        title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        title.setFont(Font.font("Arial", 24));
 
         HBox topLayout = new HBox();
         topLayout.setPadding(new Insets(10));
