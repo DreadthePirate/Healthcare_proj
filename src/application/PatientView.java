@@ -21,44 +21,38 @@ import javafx.scene.control.TextArea;
 
 public class PatientView extends Application{
 	public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+	public static final String BUTTON_SMALL_WIDE_CSS_CLASS = "button-small-wide-style";
+	
+	
 	public void start(Stage primaryStage) {
 		String[] patientData = Data.readPatientFile(123456); //this line is for testing; this class should be displaying patient data along with medical history
 		primaryStage.setTitle("Patient View");
 		primaryStage.setResizable(false);
 		
-
 		// Main layout stacks
         HBox stack1 = new HBox(10);
         VBox stack2 = new VBox(25);
         VBox stack3 = new VBox(25);
         
-        
-        
-        //Misc Labels
+        // Miscellaneous Labels
         Label vitalLabel = new Label("--Vitals--");
         vitalLabel.setPadding(new Insets(20,10,10,60));
         
         //textArea stack
-        
         Label historyLabel = new Label("--History--");
         historyLabel.setPadding(new Insets(10,10,10,80));
         
         // Go Back button
-        Button goBack = new Button("Go Back");
+        Button goBack = new Button("Log Out");
         Button messageDoctor = new Button("Message Doctor");
         HBox topControls = new HBox(goBack);
         topControls.setAlignment(Pos.TOP_LEFT);
         messageDoctor.setPadding(new Insets(10,10,10,10));
         topControls.setPadding(new Insets(10,30,10,20));
         goBack.setMinWidth(150);
+        goBack.setMinHeight(45);
         
-        
-        
-        
-
         //VBox formatting
-
-
         stack1.getChildren().add(new Label("Patient: Body temperature: " + "*TEMPERATURE INFORMATION* \n" + "Previously prescribed medication: \n" + patientData[7])); //Do we have temperature information
         stack1.getChildren().add(new Label("Patient Information"));
         stack1.setAlignment(Pos.TOP_CENTER);
@@ -81,8 +75,7 @@ public class PatientView extends Application{
 		
         // Styling buttons
         goBack.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
-        messageDoctor.getStyleClass().add("button-small-style-wide");
-        
+        messageDoctor.getStyleClass().add(BUTTON_SMALL_WIDE_CSS_CLASS);
      
   
         //patientdata[0]=Weight
@@ -99,8 +92,6 @@ public class PatientView extends Application{
         VBox textStack1 = new VBox(8);
         VBox textStack2 = new VBox(8);
 
-        
-        
         textStack1.setPadding(new Insets(40, 10, 31, 10));
         textStack2.setPadding(new Insets(40, 10, 0, 10));
         
@@ -126,7 +117,7 @@ public class PatientView extends Application{
         textStack1.setMaxWidth(100);
         
 
-     // Grid for the form fields
+        // Grid for the form fields
         GridPane grid = new GridPane();
         Label header = new Label("Patient Body temperature: " + "NULL \n");
         Text title = new Text("\tPatient View");
@@ -150,7 +141,6 @@ public class PatientView extends Application{
         
         grid.add(vitalLabel, 0,3);
         grid.add(historyLabel, 3, 3);
-        //grid.add(header, 2, 3);
         grid.add(title, 2, 0);
         grid.add(stack2, 0,4);
         grid.add(topControls, 0, 0);
@@ -160,12 +150,10 @@ public class PatientView extends Application{
         grid.add(messageDoctor, 3, 5);
 
         // Button events
-        goBack.setOnAction(e -> new Main().start(primaryStage));
+        goBack.setOnAction(e -> new PatientLogin().start(primaryStage));
         //messageDoctor.setOnAction(e -> new MessageDoctor().start(primaryStage)); code to be added once message doctor class is added
 
-
-         
-        Scene scene = new Scene(grid,730,420);
+        Scene scene = new Scene(grid,730,450);
         scene.getStylesheets().add(getClass().getResource("/resources/styles.css").toExternalForm());
 
         // Set the stage

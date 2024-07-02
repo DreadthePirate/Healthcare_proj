@@ -22,8 +22,9 @@ import javafx.stage.Stage;
 
 public class MessagingView extends Application {
 
+	public static final String BUTTOM_BACK = "button-style";
     public static final String BUTTON_SMALL_CSS_CLASS = "button-small-message-style";
-    public static final String BUTTON_LARGE_CSS_CLASS = "button-large-message-style";
+    public static final String BUTTON_LARGE_CSS_CLASS = "button-small-wide-message-style";
 
     private List<String> conversations;
     private VBox chatbox = new VBox(10);
@@ -41,38 +42,38 @@ public class MessagingView extends Application {
         title.setFont(Font.font("Arial", 18));
         HBox titleBox = new HBox(title);
         titleBox.setAlignment(Pos.CENTER);
-        titleBox.setPadding(new Insets(20, 0, 25, 0));
+        titleBox.setPadding(new Insets(5, 0, 15, 0));
 
         // New Conversation input and button
-        newConversationField.setPromptText("Sample_Conversation");
-        newConversationField.setPrefWidth(300); // Set preferred width
+        newConversationField.setPromptText("New Conversation Name");
+        newConversationField.setPrefWidth(275); // Set preferred width
         Button startNewConversationButton = new Button("New Conversation");
         startNewConversationButton.getStyleClass().add(BUTTON_LARGE_CSS_CLASS);
 
         // Go Back button
         Button GoBack = new Button("Go Back");
         HBox topControls = new HBox(GoBack);
+        topControls.setPrefSize(150, 95);
         topControls.setAlignment(Pos.TOP_LEFT);
-        GoBack.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
+        GoBack.getStyleClass().add(BUTTOM_BACK);
 //        GoBack.setOnAction(e -> new PatientView().start(primaryStage));
 
-
-
-        HBox newConversationBox = new HBox(-4, newConversationField, startNewConversationButton);
+        HBox newConversationBox = new HBox(-5, newConversationField, startNewConversationButton);
         newConversationBox.setAlignment(Pos.CENTER);
 
         // Conversation selector
-        conversationSelector.setValue("Sample_Conversation");
+        conversationSelector.setValue("Select An Existing Conversation");
+        conversationSelector.setPrefWidth(300);
         conversationSelector.setOnAction(e -> System.out.println("test"));
 
         // Chat area inside a ScrollPane
         chatbox.setPadding(new Insets(10));
         chatScrollPane.setContent(chatbox);
         chatScrollPane.setFitToWidth(true);
-        chatScrollPane.setPrefHeight(200);
+        chatScrollPane.setPrefHeight(300);
 
         // Message input and send button
-        messageInput.setPromptText("Message_To_Send");
+        messageInput.setPromptText("Message To Send");
         messageInput.setPrefWidth(300);
         Button sendMessageButton = new Button("Send");
         sendMessageButton.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
@@ -98,16 +99,16 @@ public class MessagingView extends Application {
             }
         });
 
-        HBox messageInputBox = new HBox(20, messageInput, sendMessageButton);
+        HBox messageInputBox = new HBox(-5, messageInput, sendMessageButton);
         messageInputBox.setAlignment(Pos.CENTER);
 
         // Main layout
-        VBox layout = new VBox(3, topControls, titleBox, newConversationBox, conversationSelector, chatScrollPane, messageInputBox);
+        VBox layout = new VBox(20, topControls, titleBox, newConversationBox, conversationSelector, chatScrollPane, messageInputBox);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.TOP_CENTER);
 
         // Setting up the Scene
-        Scene scene = new Scene(layout, 600, 400);
+        Scene scene = new Scene(layout, 600, 575);
         scene.getStylesheets().add(getClass().getResource("/resources/styles.css").toExternalForm());
 
         // Set the stage
