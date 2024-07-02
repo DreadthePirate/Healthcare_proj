@@ -130,7 +130,7 @@ public class PatientView extends Application{
         
         header.setPadding(new Insets(30, 10, 10, 10));
         
-        title.setFont(Font.font("Arial",24));
+        title.setFont(Font.font("Arial", 24));
         header.setAlignment(Pos.BASELINE_CENTER);
         grid.getColumnConstraints().add(new ColumnConstraints(120));
         grid.getColumnConstraints().add(new ColumnConstraints(150));
@@ -159,8 +159,6 @@ public class PatientView extends Application{
         // Set the stage
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-
 	}
 	
 	public static void main(String[] args) {
