@@ -21,27 +21,14 @@ public class DoctorView extends Application {
         // Create layout
         BorderPane borderPane = new BorderPane();
 
-        // Top layout with "Go Back" button
-        /*
-         * Text title = new Text("\tDoctor View");
-         * title.setFont(Font.font("Arial", 24));
-         * Button goBackButton = new Button("Go Back");
-         * goBackButton.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
-         * HBox topLayout = new HBox(goBackButton);
-         * topLayout.setPadding(new Insets(10));
-         * topLayout.setAlignment(Pos.TOP_LEFT);
-         * borderPane.setTop(topLayout);
-         * goBackButton.setMaxWidth(120);
-         * goBackButton.setMaxHeight(35);
-         */
-        Text title = new Text("Doctor View");
+        Text title = new Text("Doctor Portal");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
         HBox topLayout = new HBox();
         topLayout.setPadding(new Insets(10));
         topLayout.setAlignment(Pos.CENTER);
 
-        Button goBackButton = new Button("Go Back");
+        Button goBackButton = new Button("Log Out");
         goBackButton.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
         goBackButton.setMaxWidth(120);
         goBackButton.setMaxHeight(35);
@@ -179,7 +166,7 @@ public class DoctorView extends Application {
         borderPane.setBottom(bottomLayout);
 
         // Button Actions
-        // goBackButton.setOnAction(e-> new Main().start(primaryStage));
+        goBackButton.setOnAction(e-> new DoctorLogin().start(primaryStage));
         // messagePatientButton.setOnAction(e-> new
         // MessagePatient().start(primaryStage));
         // saveButton.setOnAction();
