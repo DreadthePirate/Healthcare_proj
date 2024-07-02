@@ -56,10 +56,12 @@
 
 .button-small-message-style {
     -fx-pref-width: 110;
+    -fx-pref-height: 69px;
 }
 
 .button-small-wide-message-style {
     -fx-pref-width: 180;
+    -fx-pref-height: 69px;
 }
 
 .button-style {

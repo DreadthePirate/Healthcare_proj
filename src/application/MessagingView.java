@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 public class MessagingView extends Application {
 
-	public static final String BUTTOM_BACK = "button-style";
+	public static final String BUTTOM_BACK = "button-small-style";
     public static final String BUTTON_SMALL_CSS_CLASS = "button-small-message-style";
     public static final String BUTTON_LARGE_CSS_CLASS = "button-small-wide-message-style";
 
@@ -42,7 +42,7 @@ public class MessagingView extends Application {
         title.setFont(Font.font("Arial", 24));
         HBox titleBox = new HBox(title);
         titleBox.setAlignment(Pos.CENTER);
-        titleBox.setPadding(new Insets(5, 0, 20, 0));
+        titleBox.setPadding(new Insets(0, 0, 20, 0));
 
         // New Conversation input and button
         newConversationField.setPromptText("New Conversation Name");
@@ -53,7 +53,7 @@ public class MessagingView extends Application {
         // Go Back button
         Button GoBack = new Button("Go Back");
         HBox topControls = new HBox(GoBack);
-        topControls.setPrefSize(150, 95);
+        topControls.setPrefSize(50, 95);
         topControls.setAlignment(Pos.TOP_LEFT);
         GoBack.getStyleClass().add(BUTTOM_BACK);
 //        GoBack.setOnAction(e -> new PatientView().start(primaryStage));
@@ -108,7 +108,7 @@ public class MessagingView extends Application {
         layout.setAlignment(Pos.TOP_CENTER);
 
         // Setting up the Scene
-        Scene scene = new Scene(layout, 600, 585);
+        Scene scene = new Scene(layout, 600, 605);
         scene.getStylesheets().add(getClass().getResource("/resources/styles.css").toExternalForm());
 
         // Set the stage
