@@ -1,10 +1,8 @@
 package application;
 
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -23,6 +21,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MessagingView extends Application {
+
+    public static final String BUTTON_SMALL_CSS_CLASS = "button-small-message-style";
+    public static final String BUTTON_LARGE_CSS_CLASS = "button-large-message-style";
 
     private List<String> conversations;
     private VBox chatbox = new VBox(10);
@@ -46,13 +47,21 @@ public class MessagingView extends Application {
         newConversationField.setPromptText("Sample_Conversation");
         newConversationField.setPrefWidth(300); // Set preferred width
         Button startNewConversationButton = new Button("New Conversation");
-        startNewConversationButton.getStyleClass().add("button-large-style");
+        startNewConversationButton.getStyleClass().add(BUTTON_LARGE_CSS_CLASS);
+
+        // Go Back button
+        Button GoBack = new Button("Go Back");
+        HBox topControls = new HBox(GoBack);
+        topControls.setAlignment(Pos.TOP_LEFT);
+        GoBack.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
+//        GoBack.setOnAction(e -> new PatientView().start(primaryStage));
+
+
 
         HBox newConversationBox = new HBox(-4, newConversationField, startNewConversationButton);
         newConversationBox.setAlignment(Pos.CENTER);
 
         // Conversation selector
-//        conversationSelector.getItems().addAll(viewConversations());
         conversationSelector.setValue("Sample_Conversation");
         conversationSelector.setOnAction(e -> System.out.println("test"));
 
@@ -66,6 +75,8 @@ public class MessagingView extends Application {
         messageInput.setPromptText("Message_To_Send");
         messageInput.setPrefWidth(300);
         Button sendMessageButton = new Button("Send");
+        sendMessageButton.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
+
 
         sendMessageButton.setOnAction(e -> {
             String messageText = messageInput.getText().trim();
@@ -77,21 +88,21 @@ public class MessagingView extends Application {
             }
         });
 
-        startNewConversationButton.setOnAction(e -> {System.out.println("");
-//            String newConversation = newConversationField.getText().trim();
-//            if (!newConversation.isEmpty()) {
-//                chatbox.getChildren().clear();
-//                conversationSelector.getItems().add(newConversation);
-//                conversationSelector.setValue(newConversation);
-//                newConversationField.clear();
-//            }
+        startNewConversationButton.setOnAction(e -> {
+            String newConversation = newConversationField.getText().trim();
+            if (!newConversation.isEmpty()) {
+                chatbox.getChildren().clear();
+                conversationSelector.getItems().add(newConversation);
+                conversationSelector.setValue(newConversation);
+                newConversationField.clear();
+            }
         });
 
         HBox messageInputBox = new HBox(20, messageInput, sendMessageButton);
         messageInputBox.setAlignment(Pos.CENTER);
 
         // Main layout
-        VBox layout = new VBox(10, titleBox, newConversationBox, conversationSelector, chatScrollPane, messageInputBox);
+        VBox layout = new VBox(3, topControls, titleBox, newConversationBox, conversationSelector, chatScrollPane, messageInputBox);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.TOP_CENTER);
 
@@ -103,24 +114,5 @@ public class MessagingView extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-
-
-//    private void loadConversation(int ID) {
-//        chatbox.getChildren().clear();
-//        conversations = List.of(Data.readPatientFile(ID));
-//        for (String message : conversations) {
-//            chatbox.getChildren().add(new Label(message));
-//        }
-//    }
-//
-//    private List<String> viewConversations() {
-//        File folder = new File("src/conversations");
-//        return Stream.of(folder.listFiles())
-//                .filter(file -> file.isFile() && file.getName().endsWith(".txt"))
-//                .map(file -> file.getName().replace(".txt", ""))
-//                .collect(Collectors.toList());
-//    }
-
     public static void main(String[] args) {launch(args);}
 }

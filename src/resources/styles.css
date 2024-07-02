@@ -12,9 +12,24 @@
     -fx-padding: 3 30 3 30;
     -fx-text-fill: black;
     -fx-font-size: 14px;
-    -fx-pref-width: 210px;
-    -fx-pref-height: 60px;
+    -fx-pref-width: 180px;
+    -fx-pref-height: 80px;
 }
+
+.button-large-style {
+    -fx-background-color:
+            #3c7fb1,
+            linear-gradient(#fafdfe, #e8f5fc),
+            linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 5, 6, 7;
+    -fx-background-radius: 3, 2, 1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 80px;
+}
+
 
 .button-style:pressed,
 .button-small-style:pressed {
@@ -28,6 +43,37 @@
     -fx-pref-width: 150px;
     -fx-pref-height: 45px;
 }
+
+.button-style,
+.button-small-message-style {
+    -fx-background-color:
+            #3c7fb1,
+            linear-gradient(#fafdfe, #e8f5fc),
+            linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 5, 6, 7;
+    -fx-background-radius: 3, 2, 1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-pref-width: 120;
+    -fx-pref-height: 78;
+}
+
+.button-style,
+.button-large-message-style {
+    -fx-background-color:
+            #3c7fb1,
+            linear-gradient(#fafdfe, #e8f5fc),
+            linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
+    -fx-background-insets: 5, 6, 7;
+    -fx-background-radius: 3, 2, 1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-pref-width: 168;
+    -fx-pref-height: 80;
+}
+
 
 /*
  * NEW SECTION

@@ -14,8 +14,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.List;
+import java.util.stream.Stream;
+
 public class DoctorLogin extends Application {
     public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+    private static final String CREDENTIALS_DIR = "*/Healthcare_proj-main/src";
 
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Doctor Login");
@@ -28,6 +34,7 @@ public class DoctorLogin extends Application {
         Button GoBack = new Button("Go Back");
         HBox topControls = new HBox(GoBack);
         topControls.setAlignment(Pos.TOP_LEFT);
+        GoBack.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
 
         // Title
         Text Title = new Text("Doctor Login");
@@ -63,7 +70,6 @@ public class DoctorLogin extends Application {
         bottomControls.setAlignment(Pos.BOTTOM_RIGHT);
 
         // Styling buttons
-        GoBack.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
         btnLogin.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
 
         // Button events
@@ -75,14 +81,15 @@ public class DoctorLogin extends Application {
             if (usrnm.isEmpty() || psswrd.isEmpty() || ptID.isEmpty()) {
                 errorMessage.setText("Username, Password, and Patient ID must not be empty.");
                 errorMessage.setVisible(true);
-            } //else if(usrnm != known values || psswrd != known values || ptID != known values){
-              //  errorMessage.setText("Username, Password, or Patient are wrong.");
-              //  errorMessage.setVisible(true);
-            // }
-            //else
-            // setOnAction(e -> new DoctorView().start(primaryStage));
+            } else if (!verifyLogin(usrnm, psswrd, ptID)) {
+                errorMessage.setText("Username, Password, or Patient ID are incorrect.");
+                errorMessage.setVisible(true);
+            } else {
+                // Proceed to the next view
+                // new DoctorView().start(primaryStage);
+                System.out.println("asflj");
+            }
         });
-
 
         // Adding components to the VBox
         DrLogin.getChildren().addAll(topControls, TitleBox, grid, errorMessage, bottomControls);
@@ -94,11 +101,61 @@ public class DoctorLogin extends Application {
         // Set the stage
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
 
-}
+    private boolean verifyLogin(String username, String password, String patientID) {
+        try (Stream<Path> paths = Files.walk(Paths.get(CREDENTIALS_DIR))) {
+            return paths
+                    .filter(Files::isRegularFile)
+                    .anyMatch(path -> {
+                        try {
+                            List<String> lines = Files.readAllLines(path);
+                            String fileUsername = "";
+                            String filePassword = "";
+                            String filePatientID = "";
+                            for (String line : lines) {
+                                if (line.trim().isEmpty()) {
+                                    // Blank line indicates end of one credential set
+                                    if (fileUsername.equals(username) && filePassword.equals(password) && filePatientID.equals(patientID)) {
+                                        return true;
+                                    }
+                                    // Reset for next set
+                                    fileUsername = "";
+                                    filePassword = "";
+                                    filePatientID = "";
+                                } else {
+                                    String[] parts = line.split(":");
+                                    if (parts.length == 2) {
+                                        String key = parts[0].trim();
+                                        String value = parts[1].trim();
+                                        switch (key.toLowerCase()) {
+                                            case "username":
+                                                fileUsername = value;
+                                                break;
+                                            case "password":
+                                                filePassword = value;
+                                                break;
+                                            case "patient id":
+                                                filePatientID = value;
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                            // Check the last set in the file
+                            return fileUsername.equals(username) && filePassword.equals(password) && filePatientID.equals(patientID);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return false;
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
-
