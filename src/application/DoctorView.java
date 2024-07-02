@@ -30,8 +30,8 @@ public class DoctorView extends Application {
 
         Button goBackButton = new Button("Log Out");
         goBackButton.getStyleClass().add(BUTTON_SMALL_CSS_CLASS);
-        goBackButton.setMaxWidth(120);
-        goBackButton.setMaxHeight(35);
+        goBackButton.setMaxWidth(150);
+        goBackButton.setMaxHeight(45);
 
         Region leftSpacer = new Region();
         Region rightSpacer = new Region();
