@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.util.Random;
 
 import javafx.application.Application;
@@ -89,7 +90,6 @@ public class PatientIntake extends Application {
             int patientID = rand.nextInt(900000) + 100000;
             TextField[] textFields = {firstNameField, lastNameField, dobField, weightField, heightField, bloodPressureField, allergiesField, healthConcernsField};
             Data.writePatientFile(patientID, textFields);
-            Data.readPatientFile(patientID);
             new Main().start(primaryStage);
         });
 

@@ -1,6 +1,11 @@
 package application;
 
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,9 +28,26 @@ public class PatientView extends Application{
 	public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
 	public static final String BUTTON_SMALL_WIDE_CSS_CLASS = "button-small-wide-style";
 	
+	private int patientID;
 	
 	public void start(Stage primaryStage) {
-		String[] patientData = Data.readPatientFile(123456); //this line is for testing; this class should be displaying patient data along with medical history
+		String[] patientData;
+		String[] noteData;
+		
+		// Initialize data - Login handles bad Id, needed to start app from java file.
+		try {
+			patientData = Data.readPatientFile(this.patientID);
+		} catch (IOException e) {
+			patientData = new String[9];
+		}
+		String name = patientData[0];
+		
+		try {
+			noteData = Data.readDoctorNotesFile(this.patientID);
+		} catch (IOException e) {
+			noteData = new String[3];
+		}
+		
 		primaryStage.setTitle("Patient View");
 		primaryStage.setResizable(false);
 		
@@ -78,14 +100,14 @@ public class PatientView extends Application{
         messageDoctor.getStyleClass().add(BUTTON_SMALL_WIDE_CSS_CLASS);
      
   
-        //patientdata[0]=Weight
-        //patientdata[1]=Height
-        //patientdata[2]=Blood Pressure
-        //patientdata[3]=Allergies
-        //patientdata[4]=Concerns
-        //patientdata[5]=Previous health issues
-        //patientdata[6]=Prescribed medication
-        //patientdata[7]=Immunization history
+        //patientdata[0]=First Name
+        //patientdata[1]=Last Name
+        //patientdata[2]=DOB
+        //patientdata[3]=Weight
+        //patientdata[4]=Height
+        //patientdata[5]=Blood Pressure
+        //patientdata[6]=Allergies
+        //patientdata[7]=Health Concerns
         
         
         //initialize textArea fields
@@ -98,13 +120,13 @@ public class PatientView extends Application{
         TextArea[] textArea = new TextArea[8];
         for (int i = 0; i < textArea.length; i++) {
         	textArea[i] = new TextArea();
-        	textArea[i].setText(patientData[i]);
         	textArea[i].setPrefWidth(100);
         	
         	textArea[i].setPrefHeight(32);
             textArea[i].setEditable(false);
         	if (i < 5) {
         		textArea[i].setMinHeight(20);
+        		textArea[i].setMinWidth(125);
                 textStack1.getChildren().add(textArea[i]);
         	}
         	else {
@@ -115,6 +137,14 @@ public class PatientView extends Application{
         	
         }
         textStack1.setMaxWidth(100);
+
+        // Set Data
+        for (int i = 3; i < patientData.length - 1; ++i) {
+        	textArea[i - 3].setText(patientData[i]);
+        }
+        textArea[5].setText(noteData[1]);
+        textArea[6].setText(noteData[0]);
+        textArea[7].setText(noteData[2]);
         
 
         // Grid for the form fields
@@ -151,9 +181,15 @@ public class PatientView extends Application{
 
         // Button events
         goBack.setOnAction(e -> new PatientLogin().start(primaryStage));
-        //messageDoctor.setOnAction(e -> new MessageDoctor().start(primaryStage)); code to be added once message doctor class is added
+        messageDoctor.setOnAction(e -> {
+        	MessagingView messagingView = new MessagingView();
+        	messagingView.setType("patient");
+        	messagingView.setPatientID(this.patientID);
+        	messagingView.setName(name);
+        	messagingView.start(primaryStage);
+        });
 
-        Scene scene = new Scene(grid,730,450);
+        Scene scene = new Scene(grid, 730, 475);
         scene.getStylesheets().add(getClass().getResource("/resources/styles.css").toExternalForm());
 
         // Set the stage
@@ -161,7 +197,13 @@ public class PatientView extends Application{
         primaryStage.show();
 	}
 	
+	// Helper functions
+	public void setPatientID (int patientID) {
+		this.patientID = patientID;
+	}
+	
 	public static void main(String[] args) {
         launch(args);
     }
+	
 }

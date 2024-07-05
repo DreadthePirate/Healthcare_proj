@@ -1,5 +1,7 @@
 package application;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -62,15 +64,32 @@ public class PatientLogin extends Application {
 
         // Button events
         goBack.setOnAction(e -> new Main().start(primaryStage));
+        
+        // Login
         btnLogin.setOnAction(e -> {
-            String id = idField.getText();
-            if (id.isEmpty()) {
+            String idText = idField.getText();
+            
+            if (idText.isEmpty()) {
                 errorMessage.setText("ID must not be empty.");
                 errorMessage.setVisible(true);
-            } else {
-                // Proceed with login logic
-                System.out.println("Patient Login successful");
-                //Logic for successful login
+            } 
+            else {
+            	try {
+                    int id = Integer.parseInt(idText); // Turns idText into an int - handles int error
+                    String[] data = Data.readPatientFile(id); // Checks if file exists - handles user not found error
+                    PatientView patientView = new PatientView();
+                	patientView.setPatientID(id);
+                	patientView.start(primaryStage);
+                    System.out.println("Patient " + id + " Login successful");
+                    
+                } catch (NumberFormatException ex) {
+                	errorMessage.setText("ID must be only numbers.");
+                    errorMessage.setVisible(true);
+                    
+                } catch (IOException ex) {
+                	errorMessage.setText("Patient ID not found.");
+                    errorMessage.setVisible(true);
+                }
             }
         });
 

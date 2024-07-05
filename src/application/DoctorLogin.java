@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -52,7 +53,7 @@ public class DoctorLogin extends Application {
         TextField usrnmField = new TextField();
         grid.add(usrnmField, 0, 1);
         grid.add(new Label("Password:"), 0, 2);
-        TextField psswrdField = new TextField();
+        TextField psswrdField = new PasswordField();
         grid.add(psswrdField, 0, 3);
         grid.add(new Label("Patient ID:"), 0, 4);
         TextField ptIDField = new TextField();
@@ -75,19 +76,49 @@ public class DoctorLogin extends Application {
         // Button events
         GoBack.setOnAction(e -> new Main().start(primaryStage));
         btnLogin.setOnAction(e -> {
-            String usrnm = usrnmField.getText();
-            String psswrd = psswrdField.getText();
-            String ptID = ptIDField.getText();
-            if (usrnm.isEmpty() || psswrd.isEmpty() || ptID.isEmpty()) {
-                errorMessage.setText("Username, Password, and Patient ID must not be empty.");
-                errorMessage.setVisible(true);
-            } else if (!verifyLogin(usrnm, psswrd, ptID)) {
-                errorMessage.setText("Username, Password, or Patient ID are incorrect.");
+        	String username = usrnmField.getText();
+        	String password = psswrdField.getText();
+        	String idText = ptIDField.getText();
+        	
+        	if (idText.isEmpty() || password.isEmpty() || username.isEmpty()) {
+                errorMessage.setText("Login fields must not be empty.");
                 errorMessage.setVisible(true);
             } else {
-                // Proceed to the next view
-                // new DoctorView().start(primaryStage);
-                System.out.println("asflj");
+            	// Verify Doctor Login
+            	try {
+            		String[] data = Data.readDoctorFile(username);
+            		if (data[0].equals(password)) {
+            			// Do nothing and resume execution
+            			
+            		} else {
+            			errorMessage.setText("Incorrect Password.");
+                        errorMessage.setVisible(true);
+                        return;
+            		}
+            	} catch (IOException ex) {
+                	errorMessage.setText("Incorrect Username.");
+                    errorMessage.setVisible(true);
+                }
+            	
+            	
+            	try {
+                    int id = Integer.parseInt(idText); // Turns idText into an int - handles int error
+                    String[] data = Data.readPatientFile(id); // Checks if file exists - handles user not found error
+                    
+                    DoctorView doctorView = new DoctorView();
+                    doctorView.setPatientID(id);
+                    doctorView.setName(usrnmField.getText());
+                	doctorView.start(primaryStage);
+                    System.out.println("Doctor " + username + " Login successful");
+                    
+                } catch (NumberFormatException ex) {
+                	errorMessage.setText("Patient ID must be only numbers.");
+                    errorMessage.setVisible(true);
+                    
+                } catch (IOException ex) {
+                	errorMessage.setText("Patient ID not found.");
+                    errorMessage.setVisible(true);
+                }
             }
         });
 
@@ -101,58 +132,6 @@ public class DoctorLogin extends Application {
         // Set the stage
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    private boolean verifyLogin(String username, String password, String patientID) {
-        try (Stream<Path> paths = Files.walk(Paths.get(CREDENTIALS_DIR))) {
-            return paths
-                    .filter(Files::isRegularFile)
-                    .anyMatch(path -> {
-                        try {
-                            List<String> lines = Files.readAllLines(path);
-                            String fileUsername = "";
-                            String filePassword = "";
-                            String filePatientID = "";
-                            for (String line : lines) {
-                                if (line.trim().isEmpty()) {
-                                    // Blank line indicates end of one credential set
-                                    if (fileUsername.equals(username) && filePassword.equals(password) && filePatientID.equals(patientID)) {
-                                        return true;
-                                    }
-                                    // Reset for next set
-                                    fileUsername = "";
-                                    filePassword = "";
-                                    filePatientID = "";
-                                } else {
-                                    String[] parts = line.split(":");
-                                    if (parts.length == 2) {
-                                        String key = parts[0].trim();
-                                        String value = parts[1].trim();
-                                        switch (key.toLowerCase()) {
-                                            case "username":
-                                                fileUsername = value;
-                                                break;
-                                            case "password":
-                                                filePassword = value;
-                                                break;
-                                            case "patient id":
-                                                filePatientID = value;
-                                                break;
-                                        }
-                                    }
-                                }
-                            }
-                            // Check the last set in the file
-                            return fileUsername.equals(username) && filePassword.equals(password) && filePatientID.equals(patientID);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return false;
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     public static void main(String[] args) {
