@@ -192,7 +192,8 @@ public class DoctorView extends Application {
             Data.writeDoctorNotesFile(patientID, textFields);
             
             DoctorView doctorView = new DoctorView();
-            doctorView.setPatientID(patientID);
+            doctorView.setPatientID(this.patientID);
+            doctorView.setName(this.name);
         	doctorView.start(primaryStage);
         });
         messagePatientButton.setOnAction(e -> {
