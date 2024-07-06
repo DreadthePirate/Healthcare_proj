@@ -66,6 +66,7 @@ public class MessagingView extends Application {
 			} else {
 				DoctorView doctorView = new DoctorView();
 				doctorView.setPatientID(this.patientID);
+				doctorView.setName(this.name);
 				doctorView.start(primaryStage);
 			}
 		});
@@ -82,6 +83,8 @@ public class MessagingView extends Application {
 		conversationSelector.setOnAction(e -> {
 			String selected = conversationSelector.getValue();
 			String[] messages = Data.readMessageFile(this.patientID, selected);
+			chatbox.getChildren().clear();
+			
 			for (String message : messages) {
 				Label messageLabel = new Label(message);
 				chatbox.getChildren().add(messageLabel);
