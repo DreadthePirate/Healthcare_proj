@@ -17,9 +17,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PatientLogin extends Application {
-    public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
-
+    
     public void start(Stage primaryStage) {
+    	final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+    	
         primaryStage.setTitle("Patient Login");
 
         // Main layout is a VBox

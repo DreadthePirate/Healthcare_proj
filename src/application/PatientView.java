@@ -25,12 +25,12 @@ import javafx.scene.control.TextArea;
 
 
 public class PatientView extends Application{
-	public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
-	public static final String BUTTON_SMALL_WIDE_CSS_CLASS = "button-small-wide-style";
-	
 	private int patientID;
 	
 	public void start(Stage primaryStage) {
+		final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+		final String BUTTON_SMALL_WIDE_CSS_CLASS = "button-small-wide-style";
+		
 		String[] patientData;
 		String[] noteData;
 		

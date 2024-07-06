@@ -15,13 +15,13 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
 
 public class DoctorView extends Application {
-    public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
-    
     private int patientID;
     private String name;
 
     @Override
     public void start(Stage primaryStage) {
+        final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+    	
     	String[] patientData;
     	String[] noteData;
     	

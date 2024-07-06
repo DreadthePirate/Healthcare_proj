@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class DoctorLogin extends Application {
-    public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
-    private static final String CREDENTIALS_DIR = "*/Healthcare_proj-main/src";
-
+	
     public void start(Stage primaryStage) {
+        final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+    	
         primaryStage.setTitle("Doctor Login");
 
         // Main layout is a VBox

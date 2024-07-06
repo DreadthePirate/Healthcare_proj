@@ -18,10 +18,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PatientIntake extends Application {
-	public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
 
     @Override
     public void start(Stage primaryStage) {
+    	final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+    	
     	primaryStage.setTitle("Patient Intake Form");
 
         // Main layout is a VBox
