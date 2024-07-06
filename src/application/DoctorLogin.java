@@ -98,6 +98,7 @@ public class DoctorLogin extends Application {
             	} catch (IOException ex) {
                 	errorMessage.setText("Incorrect Username.");
                     errorMessage.setVisible(true);
+                    return;
                 }
             	
             	
