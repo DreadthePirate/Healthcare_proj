@@ -98,6 +98,7 @@ public class PatientLogin extends Application {
         patientLogin.getChildren().addAll(topControls, titleBox, grid, errorMessage, bottomControls);
 
         // Set up the Scene
+        //Adjusted button size to better fit the window
         Scene scene = new Scene(patientLogin, 350, 300);
         scene.getStylesheets().add(getClass().getResource("/resources/styles.css").toExternalForm());
 
