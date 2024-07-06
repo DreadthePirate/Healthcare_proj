@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.util.Random;
 
 import javafx.application.Application;
@@ -17,10 +18,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PatientIntake extends Application {
-	public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
 
     @Override
     public void start(Stage primaryStage) {
+    	final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+    	
     	primaryStage.setTitle("Patient Intake Form");
 
         // Main layout is a VBox
@@ -89,7 +91,6 @@ public class PatientIntake extends Application {
             int patientID = rand.nextInt(900000) + 100000;
             TextField[] textFields = {firstNameField, lastNameField, dobField, weightField, heightField, bloodPressureField, allergiesField, healthConcernsField};
             Data.writePatientFile(patientID, textFields);
-            Data.readPatientFile(patientID);
             new Main().start(primaryStage);
         });
 

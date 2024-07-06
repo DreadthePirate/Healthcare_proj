@@ -1,5 +1,8 @@
 package application;
 
+import java.io.IOException;
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,10 +15,28 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Font;
 
 public class DoctorView extends Application {
-    public static final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+    private int patientID;
+    private String name;
 
     @Override
     public void start(Stage primaryStage) {
+        final String BUTTON_SMALL_CSS_CLASS = "button-small-style";
+    	
+    	String[] patientData;
+    	String[] noteData;
+    	
+    	try {
+			patientData = Data.readPatientFile(this.patientID);
+		} catch (IOException e) {
+			patientData = new String[9];
+		}
+    	
+    	try {
+			noteData = Data.readDoctorNotesFile(this.patientID);
+		} catch (IOException e) {
+			noteData = new String[3];
+		}
+    	
         primaryStage.setTitle("Doctor Portal");
 
         // Create layout
@@ -50,21 +71,21 @@ public class DoctorView extends Application {
         Label medicationLabel = new Label("Medication:");
         TextArea medicationTextArea = new TextArea();
         medicationTextArea.setPrefHeight(50);
-        medicationTextArea.setMaxWidth(400);
+        medicationTextArea.setMaxWidth(375);
         gridPane.add(medicationLabel, 0, 0);
         gridPane.add(medicationTextArea, 1, 0, 2, 1);
 
         Label doctorNotesLabel = new Label("Doctor's Notes:");
         TextArea doctorNotesTextArea = new TextArea();
         doctorNotesTextArea.setPrefHeight(50);
-        doctorNotesTextArea.setMaxWidth(400);
+        doctorNotesTextArea.setMaxWidth(375);
         gridPane.add(doctorNotesLabel, 0, 1);
         gridPane.add(doctorNotesTextArea, 1, 1, 2, 1);
 
         Label immunizationRecordLabel = new Label("Immunization Record:");
         TextArea immunizationRecordTextArea = new TextArea();
         immunizationRecordTextArea.setPrefHeight(50);
-        immunizationRecordTextArea.setMaxWidth(400);
+        immunizationRecordTextArea.setMaxWidth(375);
         gridPane.add(immunizationRecordLabel, 0, 2);
         gridPane.add(immunizationRecordTextArea, 1, 2, 2, 1);
 
@@ -77,44 +98,43 @@ public class DoctorView extends Application {
 
         Label heightLabel = new Label("Height:");
         TextField heightField = new TextField();
-        heightField.setText(""); // Pull from text file
+        heightField.setText(patientData[3]); // Pull from text file
         heightField.setEditable(false);
 
         Label weightLabel = new Label("Weight:");
         TextField weightField = new TextField();
-        weightField.setText(""); // Pull from text file
+        weightField.setText(patientData[4]); // Pull from text file
         weightField.setEditable(false);
 
         Label bloodPressureLabel = new Label("Blood Pressure:");
         TextField bloodPressureField = new TextField();
-        bloodPressureField.setText(""); // Pull from text file
+        bloodPressureField.setText(patientData[5]); // Pull from text file
         bloodPressureField.setEditable(false);
 
         Label allergiesLabel = new Label("Allergies:");
         TextField allergiesField = new TextField();
-        allergiesField.setText(""); // Pull from text file
+        allergiesField.setText(patientData[6]); // Pull from text file
         allergiesField.setEditable(false);
 
         Label concernsLabel = new Label("Concerns:");
         TextField concernsField = new TextField();
-        concernsField.setText(""); // Pull from text file
+        concernsField.setText(patientData[7]); // Pull from text file
         concernsField.setEditable(false);
 
         Label previousHealthLabel = new Label("Previous Health Issues:");
         TextField previousHealthIssuesField = new TextField();
-        previousHealthIssuesField.setText(""); // Pull from text file
+        previousHealthIssuesField.setText(noteData[1]); // Pull from text file
         previousHealthIssuesField.setEditable(false);
 
         Label previousPrescriptionLabel = new Label("Previously Prescribed Medication:");
         TextField previouslyPrescribedMedicationField = new TextField();
-        previouslyPrescribedMedicationField.setText(""); // Pull from text file
+        previouslyPrescribedMedicationField.setText(noteData[0]); // Pull from text file
         previouslyPrescribedMedicationField.setEditable(false);
 
         Label immunizationLabel = new Label("Immunization History:");
         TextField immunizationHistoryField = new TextField();
-        immunizationHistoryField.setText(""); // Pull from text file
+        immunizationHistoryField.setText(noteData[2]); // Pull from text file
         immunizationHistoryField.setEditable(false);
-        //
 
         // Vitals Spacing Section
         GridPane vitalsGridPane = new GridPane();
@@ -166,16 +186,36 @@ public class DoctorView extends Application {
         borderPane.setBottom(bottomLayout);
 
         // Button Actions
-        goBackButton.setOnAction(e-> new DoctorLogin().start(primaryStage));
-        // messagePatientButton.setOnAction(e-> new
-        // MessagePatient().start(primaryStage));
-        // saveButton.setOnAction();
+        goBackButton.setOnAction(e -> new DoctorLogin().start(primaryStage));
+        saveButton.setOnAction(e -> {
+            TextArea[] textFields = {medicationTextArea, doctorNotesTextArea, immunizationRecordTextArea};
+            Data.writeDoctorNotesFile(patientID, textFields);
+            
+            DoctorView doctorView = new DoctorView();
+            doctorView.setPatientID(patientID);
+        	doctorView.start(primaryStage);
+        });
+        messagePatientButton.setOnAction(e -> {
+        	MessagingView messagingView = new MessagingView();
+        	messagingView.setType("doctor");
+        	messagingView.setPatientID(this.patientID);
+        	messagingView.setName(this.name);
+        	messagingView.start(primaryStage);
+        });
 
         // Scene and Stage
         Scene scene = new Scene(borderPane, 950, 450);
         scene.getStylesheets().add(getClass().getResource("/resources/styles.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    
+    public void setPatientID (int patientID) {
+		this.patientID = patientID;
+	}
+    
+    public void setName (String name) {
+    	this.name = name;
     }
 
     public static void main(String[] args) {

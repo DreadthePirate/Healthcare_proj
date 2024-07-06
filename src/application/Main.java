@@ -13,10 +13,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 public class Main extends Application {
-	public static final String BUTTON_CSS_CLASS = "button-style";
 
     @Override
     public void start(Stage primaryStage) {
+    	 final String BUTTON_CSS_CLASS = "button-style";
+    	
     	 VBox vbox = new VBox(10);
          vbox.setAlignment(Pos.CENTER);
 
